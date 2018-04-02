@@ -10,4 +10,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    //커스텀 뷰 전환 메소드
+
+    //서버에 데이터를 보내는 메소드
 }
