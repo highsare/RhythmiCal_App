@@ -2,8 +2,10 @@ package com.beatoven.rhythmical_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,10 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String id;
+    public static String code;
+    public static int threshold;
+
     private EditText idEt,pwEt,codeEt;
     private Button logInBtn,codeBtn;
 
@@ -36,13 +42,20 @@ public class MainActivity extends AppCompatActivity {
         codeEt = findViewById(R.id.codeEt);
         logInBtn = findViewById(R.id.logInBtn);
         codeBtn = findViewById(R.id.codeBtn);
+
+        this.threshold = 10;
+
+        //2. Main Thread에서 네트워크 접속 가능하도록 설정
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
-    public void logInRequest(){
+    protected void logInRequest(View view){
+        Log.d("Log In Requested","Now");
         sendToServer("logIn");
     }
 
-    public void codeRequest(){
+    protected void codeRequest(View view){
         sendToServer("code");
     }
 
@@ -50,22 +63,24 @@ public class MainActivity extends AppCompatActivity {
         URL url = null;
         HttpURLConnection con = null;
         String param = "";
-        String id = "";
-        String password = "";
-        String code = "";
+        String inputId = "";
+        String inputPassword = "";
+        String inputCode = "";
         HashMap<String, String> params = new HashMap<>();
 
         params.put("request",request);
 
         //사용자가 입력한 데이터 (서버로 보낼 데이터)를 Map에 저장
         if (request.equals("logIn")){
-            id = idEt.getText().toString();
-            password = pwEt.getText().toString();
-            params.put("id", id);
-            params.put("password", password);
+            inputId = idEt.getText().toString();
+            inputPassword = pwEt.getText().toString();
+            params.put("id", inputId);
+            params.put("password", inputPassword);
+            Log.d("id",inputId);
+            Log.d("password",inputPassword);
         }else if(request.equals("code")){
-            code = codeEt.getText().toString();
-            params.put("code",code);
+            inputCode = codeEt.getText().toString();
+            params.put("code",inputCode);
         }
 
         //요청시 보낼 쿼리스트림으로 변환
@@ -73,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
-            url = new URL("http://10.10.11.145:8888/rc/userTest");
+            url = new URL("http://10.10.12.239:8888/rc/userTest");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }
@@ -99,14 +114,18 @@ public class MainActivity extends AppCompatActivity {
 
                     while ((line = reader.readLine()) != null) {
                         page += line;
+                        Log.d("LINE:",line);
                     }
                     //답변 받은 곳
                     if (page.equals("logIn")){
+                        //역치값 받아와야함
                         Toast.makeText(this, page, Toast.LENGTH_SHORT).show();
+                        id = inputId;
                         Intent intent = new Intent(this,ConsoleActivity.class);
                         startActivity(intent);
                     }else if(page.equals("code")){
                         Toast.makeText(this, page, Toast.LENGTH_SHORT).show();
+                        code = inputCode;
                     }
                 }
             }
