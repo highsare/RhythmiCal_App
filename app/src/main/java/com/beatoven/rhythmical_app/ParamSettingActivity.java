@@ -115,16 +115,20 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
                     isSent = false;
                 }
             }else{
+                Log.d("var",var0+"//"+var1+"//"+var2);
+                Log.d("Threshold",MainActivity.threshold+"");
                 String motion = motionCheck(var0,var1,var2);
                 threshold.setText(MainActivity.threshold+"");
                 isSent = true;
             }
+
         }
     }
 
 
 
     public String motionCheck(float x, float y, float z) {
+
         int point1,point2,point3;
 
         point1 = MainActivity.threshold;

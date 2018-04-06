@@ -281,10 +281,9 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         String time = "";
         String param = "";
 
-        time = new SimpleDateFormat("SSS").format(new Date(System.currentTimeMillis()));
+        //time = new SimpleDateFormat("SSS").format(new Date(System.currentTimeMillis()));
         //사용자가 입력한 데이터 (서버로 보낼 데이터)를 Map에 저장
         HashMap<String, String> params = new HashMap<>();
-        params.put("time", time);
         params.put("motion", motion);
 
         //요청시 보낼 쿼리스트림으로 변환
@@ -292,7 +291,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
 
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
-            url = new URL("http://10.10.12.239:8888/rc/rctest");
+            url = new URL("http://10.10.12.239:8888/rhythmical/sendMotion");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }

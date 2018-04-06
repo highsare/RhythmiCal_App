@@ -10,16 +10,19 @@
         android:gravity="center"
         android:textSize="50dp"
         android:layout_marginTop="50dp"
-        android:text="Motion"/>
+        android:text="Motion"
+        android:id="@+id/textView" />
 
     <TextView
         android:id="@+id/motionResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="32dp"
         android:gravity="center"
-        android:layout_marginTop="150dp"
-        android:textSize="50dp"
-        android:text="Stay"/>
+        android:text="Stay"
+        android:textSize="50dp" />
 
     <TextView
         android:id="@+id/threshold"
