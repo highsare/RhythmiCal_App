@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,6 +103,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
                     isSent = false;
                 }
             }else{
+                Log.d("var",var0+"//"+var1+"//"+var2);
                 String motion = motionCheck(var0,var1,var2);
                 tv.setText(motion);
                 if (!motion.equals("")){
@@ -291,6 +294,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
 
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
+            //url = new URL("http://10.10.10.43:8888/rhythmical/sendMotion");
             url = new URL("http://10.10.12.239:8888/rhythmical/sendMotion");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
@@ -327,6 +331,31 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
             if(con != null){
                 con.disconnect();
             }
+        }
+    }
+
+    protected void setThreshold(View view){
+        Button btn = (Button) view;
+
+        Toast.makeText(this,"Buttons",Toast.LENGTH_SHORT).show();
+
+        switch (btn.getText().toString()){
+            case "increase":
+                if (MainActivity.threshold > 4) {
+                    MainActivity.threshold -= 2;
+                }
+                //threshold.setText(MainActivity.threshold+"");
+                break;
+            case "decrease":
+                if (MainActivity.threshold < 20) {
+                    MainActivity.threshold += 2;
+                }
+                //threshold.setText(MainActivity.threshold+"");
+                break;
+            case "ok":
+                //threshold.setText(MainActivity.threshold+"");
+                break;
+            default:break;
         }
     }
 

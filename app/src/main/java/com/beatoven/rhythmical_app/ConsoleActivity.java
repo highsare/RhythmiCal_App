@@ -33,15 +33,15 @@ public class ConsoleActivity extends Activity {
     }
 
     protected void oBtnClicked(View view){
-        Intent intent = new Intent(this,ParamSettingActivity.class);
+        /*Intent intent = new Intent(this,ParamSettingActivity.class);
         startActivity(intent);
-
-        //sendConsoleOrder("o");
+        */
+        sendConsoleOrder("enter");
     }
 
     //묶을것
     protected void xBtnClicked(View view){
-        sendConsoleOrder("x");
+        sendConsoleOrder("esc");
     }
     protected void leftBtnClicked(View view){
         sendConsoleOrder("left");
@@ -72,7 +72,8 @@ public class ConsoleActivity extends Activity {
 
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
-            url = new URL("http://10.10.12.239:8888/rc/consoleTest");
+            //url = new URL("http://10.10.10.43:8888/rhythmical/sendConsole");
+            url = new URL("http://10.10.12.239:8888/rhythmical/sendConsole");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }
@@ -104,7 +105,6 @@ public class ConsoleActivity extends Activity {
                         Intent intent = new Intent(this,RhythmiActivity.class);
                         startActivity(intent);
                     }
-
                 }
             }
         } catch (Exception e){
@@ -140,5 +140,4 @@ public class ConsoleActivity extends Activity {
         }
         return sbParam.toString();
     }
-
 }

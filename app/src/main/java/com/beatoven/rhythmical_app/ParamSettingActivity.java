@@ -49,37 +49,12 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
         threshold = findViewById(R.id.threshold);
     }
 
-    protected void setThreshold(View view){
-        Button btn = (Button) view;
-
-        Toast.makeText(this,"Buttons",Toast.LENGTH_SHORT).show();
-
-        switch (btn.getText().toString()){
-            case "increase":
-                if (MainActivity.threshold > 4) {
-                    MainActivity.threshold -= 2;
-                }
-                threshold.setText(MainActivity.threshold+"");
-                break;
-            case "decrease":
-                if (MainActivity.threshold < 20) {
-                    MainActivity.threshold += 2;
-                }
-                threshold.setText(MainActivity.threshold+"");
-                break;
-            case "ok":
-                threshold.setText(MainActivity.threshold+"");
-                break;
-            default:break;
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
         //3. 이벤트 리스너 설정
         //SENSOR_DELAY_NORMAL --> 0.2 sec
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     @Override
@@ -116,9 +91,11 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
                 }
             }else{
                 Log.d("var",var0+"//"+var1+"//"+var2);
-                Log.d("Threshold",MainActivity.threshold+"");
+                //Log.d("Threshold",MainActivity.threshold+"");
                 String motion = motionCheck(var0,var1,var2);
                 threshold.setText(MainActivity.threshold+"");
+                motionResult.setText(motion);
+                Log.d("Motion",motion);
                 isSent = true;
             }
 
@@ -128,19 +105,17 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
 
 
     public String motionCheck(float x, float y, float z) {
-
         int point1,point2,point3;
 
         point1 = MainActivity.threshold;
         point2 = MainActivity.threshold * 2;
         point3 = MainActivity.threshold * 3;
 
-        String motion = "";
+        String motion = "No Motion";
 
         if (y > point2){
             //찌르기
             motion = "POINT";
-            motionResult.setText(motion+"");
             return motion;
         }
 
@@ -247,27 +222,48 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
         if (isY != null && isZ != null){
             if (isY.equals("-Point3") && isZ.equals("+Point3")){
                 motion = "LEFT";
-                motionResult.setText(motion+"");
                 return motion;
             }
             if (isY.equals("-Point3") && (isZ.equals("-Point3") || (isZ.equals("-Point2")))){
                 motion = "RIGHT";
-                motionResult.setText(motion+"");
                 return motion;
             }
         }
         if (isY != null && isX != null){
             if (isY.equals("-Point3") && (isX.equals("-Point2")||isX.equals("-Point3"))){
                 motion = "DOWN";
-                motionResult.setText(motion+"");
                 return motion;
             }
             if (isY.equals("-Point3") && isX.equals("+Point3")){
                 motion = "UP";
-                motionResult.setText(motion+"");
                 return motion;
             }
         }
         return motion;
     }
+
+    /*protected void setThreshold(View view){
+        Button btn = (Button) view;
+
+        Toast.makeText(this,"Buttons",Toast.LENGTH_SHORT).show();
+
+        switch (btn.getText().toString()){
+            case "increase":
+                if (MainActivity.threshold > 4) {
+                    MainActivity.threshold -= 2;
+                }
+                threshold.setText(MainActivity.threshold+"");
+                break;
+            case "decrease":
+                if (MainActivity.threshold < 20) {
+                    MainActivity.threshold += 2;
+                }
+                threshold.setText(MainActivity.threshold+"");
+                break;
+            case "ok":
+                threshold.setText(MainActivity.threshold+"");
+                break;
+            default:break;
+        }
+    }*/
 }
