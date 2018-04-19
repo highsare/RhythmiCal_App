@@ -8,6 +8,7 @@
     <EditText
         android:id="@+id/idEt"
         android:layout_width="match_parent"
+        android:hint="아이디"
         android:layout_height="50dp"
         android:layout_marginTop="300dp"/>
     <EditText
