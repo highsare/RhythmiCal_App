@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText idEt,pwEt,codeEt;
     private Button logInBtn,codeBtn;
 
+    URL url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendToServer(String request){
-        URL url = null;
         HttpURLConnection con = null;
         String param = "";
         String inputId = "";
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
             //url = new URL("http://10.10.10.43:8888/rhythmical/loginApp");
-            url = new URL("http://10.10.12.239:8888/rhythmical/loginApp");
+            url = new URL("http://10.10.12.145:8888/rhythmical/loginApp");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 con.setUseCaches(false);		//캐쉬 사용여부
                 con.setRequestMethod("POST"); // URL 요청에 대한 메소드 설정 : POST.
                 con.setRequestProperty("Accept-Charset", "UTF-8"); // Accept-Charset 설정.
-                con.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;cahrset=UTF-8");
+                con.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
                 OutputStream os = con.getOutputStream();
                 os.write(param.getBytes("UTF-8"));
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                         page += line;
                         Log.d("LINE:",line);
                     }
+
                     //답변 받은 곳
                     if (page.equals("logIn")){
                         //역치값 받아와야함
@@ -124,9 +126,14 @@ public class MainActivity extends AppCompatActivity {
                         id = inputId;
                         Intent intent = new Intent(this,ConsoleActivity.class);
                         startActivity(intent);
-                    }else if(page.equals("code")){
+                    }else if(page.equals("true")){
+                        // 일치한 코드를 입력 했을 때
                         Toast.makeText(this, page, Toast.LENGTH_SHORT).show();
                         code = inputCode;
+                        Intent intent = new Intent(this,ParamSettingActivity.class);
+                        startActivity(intent);
+                    }else if(page.equals("false")){
+                        Toast.makeText(this, "코드가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
