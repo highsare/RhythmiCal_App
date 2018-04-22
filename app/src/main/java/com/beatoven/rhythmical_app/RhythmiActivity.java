@@ -2,6 +2,7 @@ package com.beatoven.rhythmical_app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -51,10 +52,17 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
 
     public TextView tv;
 
+    private String code;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rhythmi);
+
+        Intent intent = getIntent();
+        code = intent.getStringExtra("code");
+
+        Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
 
         //1. 디바이스에서 사용 가능한 센서 정보 확인
         mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -105,7 +113,6 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
             }else{
                 Log.d("var",var0+"//"+var1+"//"+var2);
                 String motion = motionCheck(var0,var1,var2);
-                tv.setText(motion);
                 if (!motion.equals("")){
                     sendMotion(motion);
                     isSent = true;
@@ -281,13 +288,13 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
     public void sendMotion(String motion){
         URL url = null;
         HttpURLConnection con = null;
-        String time = "";
         String param = "";
 
         //time = new SimpleDateFormat("SSS").format(new Date(System.currentTimeMillis()));
         //사용자가 입력한 데이터 (서버로 보낼 데이터)를 Map에 저장
         HashMap<String, String> params = new HashMap<>();
         params.put("motion", motion);
+        params.put("code", code);
 
         //요청시 보낼 쿼리스트림으로 변환
         param = makeParams(params);
@@ -295,7 +302,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
             //url = new URL("http://10.10.10.43:8888/rhythmical/sendMotion");
-            url = new URL("http://10.10.12.239:8888/rhythmical/sendMotion");
+            url = new URL("http://10.10.12.145:8888/rhythmical/sendMotion");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }

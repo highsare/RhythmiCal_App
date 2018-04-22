@@ -2,6 +2,7 @@ package com.beatoven.rhythmical_app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -35,12 +36,20 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
     private float maxX = 0;
     private float maxZ = 0;
 
+    private String code;
+
     private TextView motionResult,threshold;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paramsetting);
+
+        Intent intent = getIntent();
+        code = intent.getStringExtra("code");
+
+        Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
+
 
         mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -240,6 +249,12 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
             }
         }
         return motion;
+    }
+
+    public void setThreshold(View view){
+        Intent intent = new Intent(this,RhythmiActivity.class);
+        intent.putExtra("code",code);
+        startActivity(intent);
     }
 
     /*protected void setThreshold(View view){
