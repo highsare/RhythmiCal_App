@@ -33,6 +33,7 @@
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:onClick="leftBtnClicked"
                     android:background="@drawable/console1_2"/>
 
                 <Button
@@ -50,6 +51,7 @@
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:onClick="downBtnClicked"
                     android:background="@drawable/console2_1"/>
                 <Button
                     android:layout_width="50dp"
@@ -58,6 +60,7 @@
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:onClick="upBtnClicked"
                     android:background="@drawable/console2_3"/>
 
             </LinearLayout>
@@ -75,6 +78,7 @@
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:onClick="rightBtnClicked"
                     android:background="@drawable/console3_2"/>
 
                 <Button
@@ -92,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
+            android:onClick="oBtnClicked"
             android:background="@drawable/ok_button"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"/>
@@ -100,12 +105,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:onClick="xBtnClicked"
             android:background="@drawable/cancel_button"
             android:layout_gravity="center|bottom"
             />
     </LinearLayout>
-
-
-
 
 </LinearLayout>
