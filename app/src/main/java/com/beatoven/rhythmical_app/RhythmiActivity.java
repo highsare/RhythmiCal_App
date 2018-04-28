@@ -12,7 +12,10 @@ import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,8 +54,10 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
     private float maxZ = 0;
 
     public TextView tv;
+    public ImageView p1,p2,p3,p4;
 
     private String code;
+    private String player;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,8 +66,10 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
 
         Intent intent = getIntent();
         code = intent.getStringExtra("code");
+        player = intent.getStringExtra("player");
 
         Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, player, Toast.LENGTH_SHORT).show();
 
         //1. 디바이스에서 사용 가능한 센서 정보 확인
         mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -73,6 +80,29 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         StrictMode.setThreadPolicy(policy);
 
         tv = findViewById(R.id.text);
+        p1 = findViewById(R.id.p1);
+        p2 = findViewById(R.id.p2);
+        p3 = findViewById(R.id.p3);
+        p4 = findViewById(R.id.p4);
+
+        Animation animation
+                = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+
+        //animation.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.anim.cycle_interpolator));
+
+        if (player.equals("player2")){
+            p2.setVisibility(View.VISIBLE);
+            p2.startAnimation(animation);
+        } else if (player.equals("player3")){
+            p3.setVisibility(View.VISIBLE);
+            p3.startAnimation(animation);
+        } else if (player.equals("player4")){
+            p4.setVisibility(View.VISIBLE);
+            p4.startAnimation(animation);
+        } else {
+            p1.setVisibility(View.VISIBLE);
+            p1.startAnimation(animation);
+        }
     }
 
     @Override
@@ -302,7 +332,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
             //url = new URL("http://10.10.10.43:8888/rhythmical/sendMotion");
-            url = new URL("http://10.10.11.173:8888/rhythmical/sendMotion");
+            url = new URL(Address.ADDRESS_SR11_JJ+"sendMotion");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }
