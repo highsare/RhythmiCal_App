@@ -37,6 +37,7 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
     private float maxZ = 0;
 
     private String code;
+    private String player;
 
     private TextView motionResult,threshold;
 
@@ -47,6 +48,7 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
 
         Intent intent = getIntent();
         code = intent.getStringExtra("code");
+        player = intent.getStringExtra("player");
 
         Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
 
@@ -253,6 +255,7 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
 
     public void setThreshold(View view){
         Intent intent = new Intent(this,RhythmiActivity.class);
+        intent.putExtra("player",player);
         intent.putExtra("code",code);
         startActivity(intent);
     }

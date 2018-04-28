@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
             //url = new URL("http://10.10.10.43:8888/rhythmical/loginApp");
-            url = new URL("http://10.10.11.173:8888/rhythmical/loginApp");
+            url = new URL(Address.ADDRESS_SR11_JJ+"loginApp");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }
@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         HttpURLConnection con = null;
         String param = "";
         String inputCode = "";
+        String player = "";
         HashMap<String, String> params = new HashMap<>();
 
         params.put("request",request);
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
             //url = new URL("http://10.10.10.43:8888/rhythmical/loginApp");
-            url = new URL("http://10.10.11.173:8888/rhythmical/loginMultiApp");
+            url = new URL(Address.ADDRESS_SR11_JJ+"loginMultiApp");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }
@@ -184,15 +185,17 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     //답변 받은 곳
-                    if(page.equals("true")){
+                    if(page.contains("player")){
                         // 일치한 코드를 입력 했을 때
                         Toast.makeText(this, page, Toast.LENGTH_SHORT).show();
+                        player = page;
                         code = inputCode;
                         Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this,ParamSettingActivity.class);
                         intent.putExtra("code",code);
+                        intent.putExtra("player",player);
                         startActivity(intent);
-                    }else if(page.equals("false")){
+                    }  else{
                         Toast.makeText(this, "코드가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }
