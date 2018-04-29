@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static int threshold;
 
     private EditText idEt,pwEt,codeEt;
-    private Button logInBtn,codeBtn;
+    private Button logInBtn,codeBtn,loginpushBtn;
 
     URL url;
 
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         codeEt = findViewById(R.id.codeEt);
         logInBtn = findViewById(R.id.logInBtn);
         codeBtn = findViewById(R.id.codeBtn);
+        loginpushBtn = findViewById(R.id.loginpush);
 
         this.threshold = 10;
 
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void logInRequest(View view){
+        logInBtn.setVisibility(View.INVISIBLE);
+        loginpushBtn.setVisibility(View.VISIBLE);
         Log.d("Log In Requested","Now");
         sendToServerLogIn("logIn");
     }
