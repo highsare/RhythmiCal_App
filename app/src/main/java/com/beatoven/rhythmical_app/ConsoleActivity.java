@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -22,6 +25,7 @@ import java.util.Map;
  */
 
 public class ConsoleActivity extends Activity {
+    Button xBtn,oBtn,leftBtn,rightBtn,upBtn,downBtn,motioncon;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,30 +34,127 @@ public class ConsoleActivity extends Activity {
         //2. Main Thread에서 네트워크 접속 가능하도록 설정
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-    }
 
-    protected void oBtnClicked(View view){
-        /*Intent intent = new Intent(this,ParamSettingActivity.class);
-        startActivity(intent);
-        */
-        sendConsoleOrder("enter");
-    }
+        xBtn = findViewById(R.id.xBtn);
+        oBtn = findViewById(R.id.oBtn);
+        leftBtn = findViewById(R.id.leftBtn);
+        rightBtn = findViewById(R.id.rightBtn);
+        upBtn = findViewById(R.id.upBtn);
+        downBtn = findViewById(R.id.downBtn);
+        motioncon = findViewById(R.id.motioncon);
 
-    //묶을것
-    protected void xBtnClicked(View view){
-        sendConsoleOrder("esc");
-    }
-    protected void leftBtnClicked(View view){
-        sendConsoleOrder("left");
-    }
-    protected void upBtnClicked(View view){
-        sendConsoleOrder("up");
-    }
-    protected void downBtnClicked(View view){
-        sendConsoleOrder("down");
-    }
-    protected void rightBtnClicked(View view){
-        sendConsoleOrder("right");
+        oBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        sendConsoleOrder("enter");
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.ok_button);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.ok_button_push);
+                }
+                return false;
+            }
+        });
+
+        xBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        sendConsoleOrder("esc");
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.cancel_button);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.cancel_button_push);
+                }
+                return false;
+            }
+        });
+
+        motioncon.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        Intent intent = new Intent(ConsoleActivity.this,RhythmiActivity.class);
+                        startActivity(intent);
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.player1_mini);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.motioncon_push);
+                }
+                return false;
+            }
+        });
+
+        leftBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        sendConsoleOrder("left");
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.console1_2);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.console1_2_push);
+                }
+                return false;
+            }
+        });
+
+        upBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        sendConsoleOrder("up");
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.console2_3);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.console2_3_push);
+                }
+                return false;
+            }
+        });
+
+        downBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        sendConsoleOrder("down");
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.console2_1);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.console2_1_push);
+                }
+                return false;
+            }
+        });
+
+        rightBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        sendConsoleOrder("right");
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.console3_2);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.console3_2_push);
+                }
+                return false;
+            }
+        });
     }
 
     public void sendConsoleOrder(String order){
@@ -102,8 +203,7 @@ public class ConsoleActivity extends Activity {
                     }
                     //답변 받은 곳
                     if(page.equals("Rhythmi")){
-                        Intent intent = new Intent(this,RhythmiActivity.class);
-                        startActivity(intent);
+
                     }
                 }
             }

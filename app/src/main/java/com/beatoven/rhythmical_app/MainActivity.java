@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,24 +45,45 @@ public class MainActivity extends AppCompatActivity {
         codeEt = findViewById(R.id.codeEt);
         logInBtn = findViewById(R.id.logInBtn);
         codeBtn = findViewById(R.id.codeBtn);
-        loginpushBtn = findViewById(R.id.loginpush);
 
         this.threshold = 10;
 
         //2. Main Thread에서 네트워크 접속 가능하도록 설정
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-    }
 
-    protected void logInRequest(View view){
-        logInBtn.setVisibility(View.INVISIBLE);
-        loginpushBtn.setVisibility(View.VISIBLE);
-        Log.d("Log In Requested","Now");
-        sendToServerLogIn("logIn");
-    }
+        logInBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        Log.d("Log In Requested","Now");
+                        sendToServerLogIn("logIn");
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.login_img);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.login_push);
+                }
+                return false;
+            }
+        });
 
-    protected void codeRequest(View view){
-        sendToServerCode("code");
+        codeBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        sendToServerCode("code");
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.code_img);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.code_push);
+                }
+                return false;
+            }
+        });
     }
 
     public void sendToServerLogIn(String request){

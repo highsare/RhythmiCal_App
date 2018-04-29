@@ -8,16 +8,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_gravity="center"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/console_back">
+        android:layout_gravity="center"
+        android:background="@drawable/console_back"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginTop="80dp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -28,18 +28,42 @@
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/console1_1"/>
+                    android:background="@drawable/console1_1" />
+
+                <Button
+                    android:id="@+id/leftBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/console1_2" />
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:onClick="leftBtnClicked"
-                    android:background="@drawable/console1_2"/>
+                    android:background="@drawable/console1_3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/downBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/console2_1" />
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/console1_3"/>
+                    android:background="@drawable/console2_2" />
+
+                <Button
+                    android:id="@+id/upBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/console2_3" />
 
             </LinearLayout>
 
@@ -51,64 +75,51 @@
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:onClick="downBtnClicked"
-                    android:background="@drawable/console2_1"/>
+                    android:background="@drawable/console3_1" />
+
+                <Button
+                    android:id="@+id/rightBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/console3_2" />
+
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/console2_2"/>
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:onClick="upBtnClicked"
-                    android:background="@drawable/console2_3"/>
+                    android:background="@drawable/console3_3" />
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/console3_1"/>
-
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:onClick="rightBtnClicked"
-                    android:background="@drawable/console3_2"/>
-
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/console3_3"/>
-
-            </LinearLayout>
-
 
         </LinearLayout>
 
-
-        <Button
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:onClick="oBtnClicked"
-            android:background="@drawable/ok_button"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"/>
+            android:layout_height="300dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:onClick="xBtnClicked"
-            android:background="@drawable/cancel_button"
-            android:layout_gravity="center|bottom"
-            />
+            <Button
+                android:id="@+id/motioncon"
+                android:layout_width="140dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="225dp"
+                android:background="@drawable/player1_mini"/>
+
+            <Button
+                android:id="@+id/oBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/ok_button" />
+
+            <Button
+                android:id="@+id/xBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/cancel_button" />
+        </FrameLayout>
+
     </LinearLayout>
 
 </LinearLayout>
