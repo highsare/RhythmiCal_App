@@ -65,17 +65,7 @@
                     android:layout_height="70dp"
                     android:layout_gravity="left"
                     android:visibility="visible"
-                    android:background="@drawable/login_img"
-                    android:onClick="logInRequest"/>
-
-                <Button
-                    android:id="@+id/loginpush"
-                    android:layout_width="wrap_content"
-                    android:visibility="invisible"
-                    android:layout_height="70dp"
-                    android:layout_gravity="left"
-                    android:background="@drawable/login_push"/>
-
+                    android:background="@drawable/login_img" />
             </FrameLayout>
 
 
@@ -97,7 +87,6 @@
         android:layout_gravity="center"
         android:layout_height="50dp"
         android:background="@drawable/code_img"
-        android:layout_marginTop="240dp"
-        android:onClick="codeRequest"/>
+        android:layout_marginTop="240dp" />
 
 </FrameLayout>
