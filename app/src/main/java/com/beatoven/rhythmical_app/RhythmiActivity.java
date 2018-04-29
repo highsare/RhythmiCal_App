@@ -88,7 +88,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         Animation animation
                 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
 
-        //animation.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.anim.cycle_interpolator));
+        animation.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.anim.cycle_interpolator));
 
         if (player != null && player.equals("player2")){
             p1.setVisibility(View.INVISIBLE);
@@ -102,6 +102,9 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
             p1.setVisibility(View.INVISIBLE);
             p4.setVisibility(View.VISIBLE);
             p4.startAnimation(animation);
+        } else {
+            p1.setVisibility(View.VISIBLE);
+            p1.startAnimation(animation);
         }
     }
 
