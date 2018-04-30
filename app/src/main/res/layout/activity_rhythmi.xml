@@ -60,8 +60,14 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:layout_gravity="center"/>
+
     </LinearLayout>
 
-
-
+    <Button
+        android:id="@+id/logOutBtn"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:background="@drawable/multilogout"
+        android:layout_marginTop="430dp"
+        android:layout_marginLeft="250dp"/>
 </FrameLayout>
