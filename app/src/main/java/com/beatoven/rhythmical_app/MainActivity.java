@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         String param = "";
         String inputId = "";
         String inputPassword = "";
+        String player = "";
         HashMap<String, String> params = new HashMap<>();
 
         params.put("request",request);
@@ -141,12 +142,17 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     //답변 받은 곳
-                    if (page.equals("true")){
+                    if (page.equals("player1")){
                         //역치값 받아와야함
+                        player = page;
                         Toast.makeText(this, page, Toast.LENGTH_SHORT).show();
                         id = inputId;
-                        Intent intent = new Intent(this,ConsoleActivity.class);
+                        Intent intent = new Intent(this,ParamSettingActivity.class);
+                        intent.putExtra("id",id);
+                        intent.putExtra("player",player);
                         startActivity(intent);
+
+                        finish();
                     }
                 }
             }
@@ -220,6 +226,8 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("code",code);
                         intent.putExtra("player",player);
                         startActivity(intent);
+
+                        finish();
                     }  else{
                         Toast.makeText(this, "코드가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                     }

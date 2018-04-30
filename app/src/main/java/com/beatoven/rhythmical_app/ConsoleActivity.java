@@ -26,6 +26,8 @@ import java.util.Map;
 
 public class ConsoleActivity extends Activity {
     Button xBtn,oBtn,leftBtn,rightBtn,upBtn,downBtn,motioncon;
+    private String player;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,10 @@ public class ConsoleActivity extends Activity {
         //2. Main Thread에서 네트워크 접속 가능하도록 설정
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        Intent intent = getIntent();
+        player = intent.getStringExtra("player");
+        Toast.makeText(this,player, Toast.LENGTH_SHORT).show();
 
         xBtn = findViewById(R.id.xBtn);
         oBtn = findViewById(R.id.oBtn);
@@ -81,7 +87,9 @@ public class ConsoleActivity extends Activity {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         Intent intent = new Intent(ConsoleActivity.this,RhythmiActivity.class);
+                        intent.putExtra("player", player);
                         startActivity(intent);
+
                     case MotionEvent.ACTION_CANCEL:
                         v.setBackgroundResource(R.drawable.player1_mini);
                         break;

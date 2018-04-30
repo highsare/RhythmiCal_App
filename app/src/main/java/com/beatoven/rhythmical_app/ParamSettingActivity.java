@@ -38,6 +38,7 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
 
     private String code;
     private String player;
+    private String id;
 
     private TextView motionResult,threshold;
 
@@ -49,8 +50,10 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
         Intent intent = getIntent();
         code = intent.getStringExtra("code");
         player = intent.getStringExtra("player");
+        id = intent.getStringExtra("id");
 
         Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, player, Toast.LENGTH_SHORT).show();
 
 
         mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -254,10 +257,22 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
     }
 
     public void setThreshold(View view){
-        Intent intent = new Intent(this,RhythmiActivity.class);
-        intent.putExtra("player",player);
-        intent.putExtra("code",code);
-        startActivity(intent);
+
+        if (player.equals("player1")) {
+            Intent intent = new Intent(this, ConsoleActivity.class);
+            intent.putExtra("player", player);
+            startActivity(intent);
+
+            finish();
+        } else {
+            Intent intent = new Intent(this, RhythmiActivity.class);
+            intent.putExtra("player", player);
+            intent.putExtra("code", code);
+            startActivity(intent);
+
+            finish();
+        }
+
     }
 
     /*protected void setThreshold(View view){
