@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -56,6 +57,8 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
     public TextView tv;
     public ImageView p1,p2,p3,p4;
 
+    Button logoutBtn;
+
     private String code;
     private String player;
 
@@ -84,6 +87,8 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         p2 = findViewById(R.id.p2);
         p3 = findViewById(R.id.p3);
         p4 = findViewById(R.id.p4);
+        logoutBtn = findViewById(R.id.logOutBtn);
+
 
         Animation animation
                 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
@@ -106,6 +111,21 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
             p1.setVisibility(View.VISIBLE);
             p1.startAnimation(animation);
         }
+
+        logoutBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        v.setBackgroundResource(R.drawable.multilogout);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundResource(R.drawable.multilogout_push);
+                }
+                return false;
+            }
+        });
     }
 
     @Override
