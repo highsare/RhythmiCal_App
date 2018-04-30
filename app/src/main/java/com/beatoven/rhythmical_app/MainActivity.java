@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
             inputId = idEt.getText().toString();
             inputPassword = pwEt.getText().toString();
             params.put("id", inputId);
-            params.put("pw", inputPassword);
+            params.put("password", inputPassword);
             Log.d("id",inputId);
-            Log.d("pw",inputPassword);
+            Log.d("password",inputPassword);
         }
 
         //요청시 보낼 쿼리스트림으로 변환
@@ -153,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
 
                         finish();
+                    } else {
+                        Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
