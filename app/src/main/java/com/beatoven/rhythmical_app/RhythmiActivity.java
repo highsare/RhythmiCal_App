@@ -62,6 +62,8 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
     private String code;
     private String player;
 
+    URL url;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,24 +101,35 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
             p1.setVisibility(View.INVISIBLE);
             p2.setVisibility(View.VISIBLE);
             p2.startAnimation(animation);
+            logoutBtn();
         } else if (player != null && player.equals("player3")){
             p1.setVisibility(View.INVISIBLE);
             p3.setVisibility(View.VISIBLE);
             p3.startAnimation(animation);
+            logoutBtn();
         } else if (player != null && player.equals("player4")){
             p1.setVisibility(View.INVISIBLE);
             p4.setVisibility(View.VISIBLE);
             p4.startAnimation(animation);
+            logoutBtn();
         } else {
             p1.setVisibility(View.VISIBLE);
             p1.startAnimation(animation);
+            logoutBtn();
         }
+    }
 
+    public void  logoutBtn(){
         logoutBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_UP:
+                        if (player.equals("player1")){
+                            finish();
+                        } else {
+                            sendToServerLogOut("logOut");
+                        }
                     case MotionEvent.ACTION_CANCEL:
                         v.setBackgroundResource(R.drawable.multilogout);
                         break;
@@ -127,6 +140,76 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
             }
         });
     }
+
+    public void sendToServerLogOut(String request){
+        HttpURLConnection con = null;
+        String param = "";
+        String playerLogOut = "";
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("request",request);
+
+        //사용자가 입력한 데이터 (서버로 보낼 데이터)를 Map에 저장
+        if (request.equals("logOut")){
+            playerLogOut = player;
+            params.put("player", playerLogOut);
+            Log.d("player",playerLogOut);
+        }
+
+        //요청시 보낼 쿼리스트림으로 변환
+        param = makeParams(params);
+
+        try{
+            //서버의 IP주소, PORT번호, Context root, Request Mapping경로
+            //url = new URL("http://10.10.10.43:8888/rhythmical/loginApp");
+            url = new URL(Address.ADDRESS_SR11_JJ+"logOutMulti");
+        } catch (MalformedURLException e){
+            Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
+        }
+        try{
+            con = (HttpURLConnection) url.openConnection();
+            if(con != null){
+                con.setConnectTimeout(0);	//연결제한시간. 0은 무한대기.
+                con.setUseCaches(false);		//캐쉬 사용여부
+                con.setRequestMethod("POST"); // URL 요청에 대한 메소드 설정 : POST.
+                con.setRequestProperty("Accept-Charset", "UTF-8"); // Accept-Charset 설정.
+                con.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+                OutputStream os = con.getOutputStream();
+                os.write(param.getBytes("UTF-8"));
+                os.flush();
+                os.close();
+
+                if(con.getResponseCode() == HttpURLConnection.HTTP_OK){
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+
+                    String line;
+                    String page = "";
+
+                    while ((line = reader.readLine()) != null) {
+                        page += line;
+                        Log.d("LINE:",line);
+                    }
+
+                    //답변 받은 곳
+                    if (page.equals("true")){
+                        //역치값 받아와야함
+                        Toast.makeText(this, page, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this,MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            }
+        } catch (Exception e){
+            Toast.makeText(this, "" + e.toString(), Toast.LENGTH_SHORT).show();
+        } finally {
+            if(con != null){
+                con.disconnect();
+            }
+        }
+    }
+
+
 
     @Override
     protected void onResume() {

@@ -65,6 +65,7 @@
 
     <Button
         android:id="@+id/logOutBtn"
+        android:visibility="visible"
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:background="@drawable/multilogout"
