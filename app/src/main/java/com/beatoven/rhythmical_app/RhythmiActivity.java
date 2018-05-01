@@ -162,7 +162,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
             //url = new URL("http://10.10.10.43:8888/rhythmical/loginApp");
-            url = new URL(Address.ADDRESS_SR11_JJ+"logOutMulti");
+            url = new URL(Address.ADDRESS_SR10_HJ+"logOutMulti");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }
@@ -430,7 +430,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         //사용자가 입력한 데이터 (서버로 보낼 데이터)를 Map에 저장
         HashMap<String, String> params = new HashMap<>();
         params.put("motion", motion);
-        params.put("code", code);
+        params.put("player", player);
 
         //요청시 보낼 쿼리스트림으로 변환
         param = makeParams(params);
@@ -438,7 +438,7 @@ public class RhythmiActivity extends Activity implements SensorEventListener {
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
             //url = new URL("http://10.10.10.43:8888/rhythmical/sendMotion");
-            url = new URL(Address.ADDRESS_SR11_JJ+"sendMotion");
+            url = new URL(Address.ADDRESS_SR10_HJ+"sendMotion");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }

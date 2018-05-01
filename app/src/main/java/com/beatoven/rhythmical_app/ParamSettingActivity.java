@@ -261,6 +261,7 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
         if (player.equals("player1")) {
             Intent intent = new Intent(this, ConsoleActivity.class);
             intent.putExtra("player", player);
+            intent.putExtra("code", code);
             startActivity(intent);
 
             finish();
