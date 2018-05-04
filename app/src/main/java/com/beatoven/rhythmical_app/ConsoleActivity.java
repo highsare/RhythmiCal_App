@@ -182,7 +182,7 @@ public class ConsoleActivity extends Activity {
         try{
             //서버의 IP주소, PORT번호, Context root, Request Mapping경로
             //url = new URL("http://10.10.10.43:8888/rhythmical/sendConsole");
-            url = new URL(Address.ADDRESS_SR09_HJ+"sendConsole");
+            url = new URL(Address.ADDRESS_SR10_HJ+"sendConsole");
         } catch (MalformedURLException e){
             Toast.makeText(this,"잘못된 URL입니다.", Toast.LENGTH_SHORT).show();
         }

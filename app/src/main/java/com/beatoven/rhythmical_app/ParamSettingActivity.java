@@ -279,7 +279,7 @@ public class ParamSettingActivity extends Activity implements SensorEventListene
     /*protected void setThreshold(View view){
         Button btn = (Button) view;
 
-        Toast.makeText(this,"Buttons",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Buttons",Toast.LENGTH_SHORT).show();
 
         switch (btn.getText().toString()){
             case "increase":
